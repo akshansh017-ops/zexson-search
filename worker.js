@@ -9,19 +9,26 @@ export default {
     const q = url.searchParams.get("q");
 
     if (!q) {
-      return Response.json({ error: "Search query missing" }, { status: 400 });
+      return Response.json(
+        { error: "Search query missing" },
+        { status: 400 }
+      );
     }
 
-    const response = await fetch(
-      "https://api.endless.sbs/search?q=" +
-      encodeURIComponent(q) +
-      "&format=json",
-      {
-        headers: {
-          "X-API-Key": env.ENDLESS_API_KEY
-        }
+    const apiUrl =
+      "https://api.searlo.tech/api/v1/search/web?" +
+      new URLSearchParams({
+        q: q,
+        limit: "10",
+        gl: "in",
+        hl: "en"
+      });
+
+    const response = await fetch(apiUrl, {
+      headers: {
+        "x-api-key": env.SEARLO_API_KEY
       }
-    );
+    });
 
     const data = await response.json();
 
