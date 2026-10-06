@@ -32,16 +32,11 @@ export default {
 
     const data = await response.json();
 
-    return new Response(
-      JSON.stringify({
-        items: data.organic || []
-      }),
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
+    return new Response(JSON.stringify(data), {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       }
-    );
+    });
   }
 };
